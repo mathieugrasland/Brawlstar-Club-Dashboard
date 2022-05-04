@@ -3,7 +3,6 @@ name: Publish to GCP Cloud Functions
 on:
   push:
     branches:
-      - develop
       - main
     tags:
       - 'v*'

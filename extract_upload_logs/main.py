@@ -1,9 +1,10 @@
 from pprint import pprint
-from api import BS_helper
+from BS_helper import BS_helper
 import json
+import os
 
 
-config = json.load(open("config.json"))
+config = json.load(open("api/config.json"))
 token = config["BS_token"]
 club_tag = config["club_tag"]
 
