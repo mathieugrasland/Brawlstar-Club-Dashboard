@@ -90,4 +90,5 @@ class BS_helper():
     def upload_lines(self, lines_to_add):
         for line in lines_to_add:
             # TODO UPLOAD 1 LINE
+            pass
 

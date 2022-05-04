@@ -1,3 +1,4 @@
+from pprint import pprint
 from api import BS_helper
 import json
 
@@ -16,6 +17,8 @@ def main():
         name = tag_to_name[tag]
         battlelog = BS.get_player_battlelog(tag)
         lines = BS.get_club_league_matchs(name, tag, battlelog)
+        print(name, len(lines))
+        pprint(lines)
         lines_to_add += lines
     # ONLY NEW RECORDS
     lines_to_add = BS.only_new_lines(lines_to_add)
