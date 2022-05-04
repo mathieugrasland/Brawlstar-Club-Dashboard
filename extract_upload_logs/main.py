@@ -1,7 +1,8 @@
 from pprint import pprint
 from BS_helper import BS_helper
 import json
-import os
+from google.cloud import bigquery
+from google.cloud import secretmanager
 
 
 config = json.load(open("api/config.json"))
