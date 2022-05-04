@@ -53,5 +53,30 @@ class BS_helper():
         )
         return r.json()["items"]
 
-    def get_club_league_matchs(self, battlelog):
-        pass
+    def get_club_league_matchs(self, name, tag, battlelog):
+        lines = []
+        for battle in battlelog:
+            time = battle["battleTime"]
+            if time > "20220503T120000.000Z":
+                battle_details = battle["battle"]
+                #
+                if 'type' in battle_details and battle_details['type'] == "teamRanked" and 'trophyChange' in battle_details:
+                    line = {}
+                    line["name"] = name
+                    line["tag"] = tag
+                    line["points"] = battle_details['trophyChange']
+                    line["mode"] = battle_details['mode']
+                    line["result"] = battle_details["result"]
+                    line["timestamp"] = time
+                    lines.append(line)
+                elif 'mode' in battle_details and battle_details['mode'] != "soloShowdown" and battle_details['mode'] != "duoShowdown" and 'type' in battle_details and battle_details['type'] != 'challenge':
+                    if 'trophyChange' in battle_details and battle_details['trophyChange'] != 8 and battle_details['trophyChange'] > 0 and battle_details['trophyChange'] < 5:
+                        line = {}
+                        line["name"] = name
+                        line["tag"] = tag
+                        line["points"] = battle_details['trophyChange']
+                        line["timestamp"] = time
+                        line["mode"] = battle_details['mode']
+                        line["result"] = battle_details["result"]
+                        lines.append(line)
+        return lines
