@@ -1,9 +1,10 @@
 import requests
 
+
 class BS_helper():
 
     def __init__(self, token):
-        self.url_api = "https://api.brawlstars.com:8080/"
+        self.url_api = "https://api.brawlstars.com/"
         self.url_v = "v1/"
         self.url = self.url_api + self.url_v
         self.token = token
@@ -21,7 +22,6 @@ class BS_helper():
             url = url_request,
             headers = self.headers
         )
-        print(r)
         return r.json()
 
     def get_tag_to_name(self, club_tag):
@@ -51,5 +51,7 @@ class BS_helper():
             url=url_request,
             headers=self.headers
         )
-        print(r)
-        return r.json()
+        return r.json()["items"]
+
+    def get_club_league_matchs(self, battlelog):
+        pass

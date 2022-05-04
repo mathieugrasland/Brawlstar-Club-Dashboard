@@ -1,0 +1,109 @@
+name: Publish to GCP Cloud Functions
+
+on:
+  push:
+    branches:
+      - develop
+      - main
+    tags:
+      - 'v*'
+
+env:
+  PYTHON_VERSION: "3.9"
+
+jobs:
+  deploy:
+    name: Publish to GCP
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Get env
+        run: |
+          # If the commit ref points to a tag the we use the extracted tag name, otherwise develop
+          if [[ ${{ github.ref }} == *"tag"* ]]; then
+            echo "ENV=prod" >> $GITHUB_ENV
+          else
+            echo "ENV=dev" >> $GITHUB_ENV
+          fi
+
+      - name: Import secrets from Vault Openshift
+        uses: hashicorp/vault-action@v2.1.0
+        with:
+          url: ${{ env.VAULT_ADDR }}
+          namespace: ${{ env.VAULT_NAMESPACE }}
+          method: approle
+          roleId: ${{ secrets.VAULT_ROLE_ID }}
+          secretId: ${{ secrets.VAULT_SECRET_ID }}
+          secrets: |
+            secret/data/${{ env.ENV }}/ci CLOUD_FUNCTION_DEPLOY_SERVICE_ACCOUNT_TOKEN | DEPLOY_TOKEN;
+            secret/data/${{ env.ENV }}/ci CLOUD_FUNCTION_EXTRACT_NAME | CLOUD_FUNCTION_EXTRACT_NAME;
+            secret/data/${{ env.ENV }}/ci CLOUD_FUNCTION_INTELLIGENCE_EXTRACT_NAME | CLOUD_FUNCTION_INTELLIGENCE_EXTRACT_NAME;
+            secret/data/${{ env.ENV }}/ci CLOUD_FUNCTION_EXTRACT_RUN_SERVICE_ACCOUNT | EXTRACT_RUN_SA;
+            secret/data/${{ env.ENV }}/ci CLOUD_FUNCTION_LOAD_NAME | CLOUD_FUNCTION_LOAD_NAME;
+            secret/data/${{ env.ENV }}/ci CLOUD_FUNCTION_INTELLIGENCE_LOAD_NAME | CLOUD_FUNCTION_INTELLIGENCE_LOAD_NAME;
+            secret/data/${{ env.ENV }}/ci CLOUD_FUNCTION_LOAD_RUN_SERVICE_ACCOUNT | LOAD_RUN_SA;
+            secret/data/${{ env.ENV }}/ci CLOUD_FUNCTIONS_EXTRACT_MEMORY | EXTRACT_MEMORY;
+            secret/data/${{ env.ENV }}/ci CLOUD_FUNCTIONS_LOAD_MEMORY | LOAD_MEMORY;
+            secret/data/${{ env.ENV }}/ci CLOUD_FUNCTIONS_MAX_INSTANCES | MAX_INSTANCES;
+            secret/data/${{ env.ENV }}/ci CLOUD_FUNCTIONS_TIMEOUT | TIMEOUT;
+            secret/data/${{ env.ENV }}/ci EXTRACT_BUCKET_NAME | BUCKET_NAME;
+            secret/data/${{ env.ENV }}/ci EXTRACT_TOPIC_NAME | EXTRACT_TOPIC_NAME;
+            secret/data/${{ env.ENV }}/ci EXTRACT_INTELLIGENCE_TOPIC_NAME | EXTRACT_INTELLIGENCE_TOPIC_NAME;
+            secret/data/${{ env.ENV }}/ci GCP_REGION | GCP_REGION;
+            secret/data/${{ env.ENV }}/ci GCP_PROJECT_ID | GCP_PROJECT_ID;
+            secret/data/${{ env.ENV }}/ci GCP_PROJECT_NUMBER | GCP_PROJECT_NUMBER;
+
+      - name: GCP authentication
+        uses: google-github-actions/auth@v0.4.0
+        with:
+          credentials_json: ${{ env.DEPLOY_TOKEN }}
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v0
+
+      - name: Deploy Extract Cloud Function
+        run: |
+          gcloud functions deploy ${{ env.CLOUD_FUNCTION_EXTRACT_NAME }} \
+            --source=./extract \
+            --entry-point=main \
+            --runtime=python39 \
+            --region=${{ env.GCP_REGION }} \
+            --service-account=${{ env.EXTRACT_RUN_SA }} \
+            --max-instances=${{ env.MAX_INSTANCES }} \
+            --clear-min-instances \
+            --memory=${{ env.EXTRACT_MEMORY }} \
+            --timeout=${{ env.TIMEOUT }} \
+            --trigger-topic=${{ env.EXTRACT_TOPIC_NAME }} \
+            --set-env-vars="PROJECT_NUMBER=${{ env.GCP_PROJECT_NUMBER }}"
+
+      - name: Deploy LOAD Cloud Function
+        run: |
+          gcloud functions deploy ${{ env.CLOUD_FUNCTION_LOAD_NAME }} \
+            --source=./load \
+            --entry-point=main \
+            --runtime=python39 \
+            --region=${{ env.GCP_REGION }} \
+            --service-account=${{ env.LOAD_RUN_SA }} \
+            --max-instances=${{ env.MAX_INSTANCES }} \
+            --clear-min-instances \
+            --memory=${{ env.LOAD_MEMORY }} \
+            --timeout=${{ env.TIMEOUT }} \
+            --trigger-event=google.storage.object.finalize \
+            --trigger-resource=${{ env.BUCKET_NAME }} \
+            --set-env-vars="PROJECT_ID=${{ env.GCP_PROJECT_ID }}"
+
+      - name: Deploy Intelligence Extract Cloud Function
+        run: |
+          gcloud functions deploy ${{ env.CLOUD_FUNCTION_INTELLIGENCE_EXTRACT_NAME }} \
+            --source=./intelligence.extract \
+            --entry-point=main \
+            --runtime=python39 \
+            --region=${{ env.GCP_REGION }} \
+            --service-account=${{ env.EXTRACT_RUN_SA }} \
+            --max-instances=${{ env.MAX_INSTANCES }} \
+            --clear-min-instances \
+            --memory=${{ env.EXTRACT_MEMORY }} \
+            --timeout=${{ env.TIMEOUT }} \
+            --trigger-topic=${{ env.EXTRACT_INTELLIGENCE_TOPIC_NAME }} \
+            --set-env-vars="PROJECT_NUMBER=${{ env.GCP_PROJECT_NUMBER }}"
