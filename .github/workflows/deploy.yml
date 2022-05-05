@@ -9,6 +9,9 @@ on:
 
 env:
   PYTHON_VERSION: "3.9"
+  DEPLOY_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
+  EXTRACT_RUN_SA: ${{ secrets.EXTRACT_RUN_SA }}
+  GCP_PROJECT_NUMBER: ${{ secrets.GCP_PROJECT_NUMBER }}
 
 jobs:
   deploy:
@@ -18,10 +21,6 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: GCP authentication
-        env:
-          DEPLOY_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
-          EXTRACT_RUN_SA: ${{ secrets.EXTRACT_RUN_SA }}
-          GCP_PROJECT_NUMBER: ${{ secrets.GCP_PROJECT_NUMBER }}
         uses: google-github-actions/auth@v0.4.0
         with:
           credentials_json: ${{ env.DEPLOY_TOKEN }}
@@ -30,10 +29,6 @@ jobs:
         uses: google-github-actions/setup-gcloud@v0
 
       - name: Deploy extract_upload_logs Cloud Function
-        env:
-          DEPLOY_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
-          EXTRACT_RUN_SA: ${{ secrets.EXTRACT_RUN_SA }}
-          GCP_PROJECT_NUMBER: ${{ secrets.GCP_PROJECT_NUMBER }}
         run: |
           gcloud functions deploy extract_upload_logs \
             --source=./extract_upload_logs \
@@ -49,10 +44,6 @@ jobs:
             --set-env-vars="PROJECT_NUMBER=${{ env.GCP_PROJECT_NUMBER }}"
 
       - name: Deploy create_table Cloud Function
-        env:
-          DEPLOY_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
-          EXTRACT_RUN_SA: ${{ secrets.EXTRACT_RUN_SA }}
-          GCP_PROJECT_NUMBER: ${{ secrets.GCP_PROJECT_NUMBER }}
         run: |
           gcloud functions deploy create_table \
             --source=./create_table \
