@@ -20,40 +20,40 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: GCP authentication
-        uses: google-github-actions/auth@v0.4.0
-        with:
-          credentials_json: ${{ env.DEPLOY_TOKEN }}
+#      - name: GCP authentication
+#        uses: google-github-actions/auth@v0.4.0
+#        with:
+#          credentials_json: ${{ env.DEPLOY_TOKEN }}
 
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v0
 
-      - name: Deploy extract_upload_logs Cloud Function
-        run: |
-          gcloud functions deploy extract_upload_logs \
-            --source=./extract_upload_logs \
-            --entry-point=main \
-            --runtime=python39 \
-            --region=europe-west1 \
-            --service-account=${{ env.EXTRACT_RUN_SA }} \
-            --max-instances=1 \
-            --clear-min-instances \
-            --memory=256MB \
-            --timeout=540 \
-            --trigger-topic=extract_upload_logs \
-            --set-env-vars="PROJECT_NUMBER=${{ env.GCP_PROJECT_NUMBER }}"
-
-      - name: Deploy create_table Cloud Function
-        run: |
-          gcloud functions deploy create_table \
-            --source=./create_table \
-            --entry-point=main \
-            --runtime=python39 \
-            --region=europe-west1 \
-            --service-account=${{ env.EXTRACT_RUN_SA }} \
-            --max-instances=1 \
-            --clear-min-instances \
-            --memory=256MB \
-            --timeout=540 \
-            --trigger-topic=create_table \
-            --set-env-vars="PROJECT_NUMBER=${{ env.GCP_PROJECT_NUMBER }}"
+#      - name: Deploy extract_upload_logs Cloud Function
+#        run: |
+#          gcloud functions deploy extract_upload_logs \
+#            --source=./extract_upload_logs \
+#            --entry-point=main \
+#            --runtime=python39 \
+#            --region=europe-west1 \
+#            --service-account=${{ env.EXTRACT_RUN_SA }} \
+#            --max-instances=1 \
+#            --clear-min-instances \
+#            --memory=256MB \
+#            --timeout=540 \
+#            --trigger-topic=extract_upload_logs \
+#            --set-env-vars="PROJECT_NUMBER=${{ env.GCP_PROJECT_NUMBER }}"
+#
+#      - name: Deploy create_table Cloud Function
+#        run: |
+#          gcloud functions deploy create_table \
+#            --source=./create_table \
+#            --entry-point=main \
+#            --runtime=python39 \
+#            --region=europe-west1 \
+#            --service-account=${{ env.EXTRACT_RUN_SA }} \
+#            --max-instances=1 \
+#            --clear-min-instances \
+#            --memory=256MB \
+#            --timeout=540 \
+#            --trigger-topic=create_table \
+#            --set-env-vars="PROJECT_NUMBER=${{ env.GCP_PROJECT_NUMBER }}"
