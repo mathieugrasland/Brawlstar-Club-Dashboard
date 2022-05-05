@@ -1,6 +1,6 @@
 import requests
-from google.cloud import bigquery
-from google.cloud import secretmanager
+# from google.cloud import bigquery
+# from google.cloud import secretmanager
 
 
 class BS_helper():
