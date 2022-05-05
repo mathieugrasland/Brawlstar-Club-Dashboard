@@ -1,5 +1,5 @@
 import requests
-# from google.cloud import bigquery
+from google.cloud import bigquery
 # from google.cloud import secretmanager
 
 
@@ -91,6 +91,16 @@ class BS_helper():
 
     def upload_lines(self, lines_to_add):
         for line in lines_to_add:
-            # TODO UPLOAD 1 LINE
+            PROJECT_ID = "bs-club-dash"
+            DATASET_ID = "club_logs"
+            TABLE_ID = "battle_logs"
+            client = bigquery.Client()
+            errors = client.insert_rows_json(
+                f"{PROJECT_ID}.{DATASET_ID}.{TABLE_ID}", [line]
+            )
+            if errors == []:
+                print("New rows have been added.")
+            else:
+                print("Encountered errors while inserting rows: {}".format(errors))
             pass
 
