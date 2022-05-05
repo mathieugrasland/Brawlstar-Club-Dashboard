@@ -10,8 +10,8 @@ on:
 env:
   PYTHON_VERSION: "3.9"
   DEPLOY_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
-#  EXTRACT_RUN_SA: ${{ secrets.EXTRACT_RUN_SA }}
-#  GCP_PROJECT_NUMBER: ${{ secrets.GCP_PROJECT_NUMBER }}
+  EXTRACT_RUN_SA: ${{ secrets.EXTRACT_RUN_SA }}
+  GCP_PROJECT_NUMBER: ${{ secrets.GCP_PROJECT_NUMBER }}
 
 jobs:
   deploy:
