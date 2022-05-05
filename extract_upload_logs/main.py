@@ -9,7 +9,7 @@ token = config["BS_token"]
 club_tag = config["club_tag"]
 
 
-def main():
+def main(request, context):
     BS = BS_helper(token)
     # GET ALL PLAYERS
     tag_to_name = BS.get_tag_to_name(club_tag)
@@ -25,7 +25,3 @@ def main():
     lines_to_add = BS.only_new_lines(lines_to_add)
     #UPLOAD
     BS.upload_lines(lines_to_add)
-
-
-if __name__ == "__main__":
-    main()

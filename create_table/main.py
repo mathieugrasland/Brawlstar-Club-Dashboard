@@ -7,7 +7,7 @@ DATASET_ID = "club_logs"
 TABLE_ID = "battle_logs"
 
 
-def main(request):
+def main(request, context):
 
     client = bigquery.Client()
 
