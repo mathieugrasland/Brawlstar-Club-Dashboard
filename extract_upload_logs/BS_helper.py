@@ -1,5 +1,6 @@
 import requests
 from google.cloud import bigquery
+import pandas as pd
 # from google.cloud import secretmanager
 
 
@@ -82,25 +83,40 @@ class BS_helper():
                     lines.append(line)
         return lines
 
+    def get_current_db(self):
+        PROJECT_ID = "bs-club-dash"
+        DATASET_ID = "club_logs"
+        TABLE_ID = "battle_logs"
+        bqclient = bigquery.Client()
+        # Download query results.
+        query_string = f"""
+        SELECT *
+        FROM {PROJECT_ID}.{DATASET_ID}.{TABLE_ID}
+        """
+        dataframe = bqclient.query(query_string).result().to_dataframe(create_bqstorage_client=True)
+        return dataframe
+
     def only_new_lines(self, lines_to_add):
-        # TODO OPEN EXISTING TABLE
-
-        # TODO CHECK IF DUPLICATE
-
-        return lines_to_add
+        current_db = self.get_current_db()
+        tag_list = list(current_db['tag'])
+        timestamp_list = list(current_db['timestamp'])
+        new_lines_to_add = []
+        for line in lines_to_add:
+            if line['tag'] not in tag_list and line['tag'] not in timestamp_list:
+                new_lines_to_add.append(line)
+        print(len(new_lines_to_add), "new lines.")
+        return new_lines_to_add
 
     def upload_lines(self, lines_to_add):
-        for line in lines_to_add:
-            PROJECT_ID = "bs-club-dash"
-            DATASET_ID = "club_logs"
-            TABLE_ID = "battle_logs"
-            client = bigquery.Client()
-            errors = client.insert_rows_json(
-                f"{PROJECT_ID}.{DATASET_ID}.{TABLE_ID}", [line]
-            )
-            if errors == []:
-                print("New rows have been added.")
-            else:
-                print("Encountered errors while inserting rows: {}".format(errors))
-            pass
+        if len(lines_to_add) != 0:
+            for line in lines_to_add:
+                PROJECT_ID = "bs-club-dash"
+                DATASET_ID = "club_logs"
+                TABLE_ID = "battle_logs"
+                client = bigquery.Client()
+                errors = client.insert_rows_json(
+                    f"{PROJECT_ID}.{DATASET_ID}.{TABLE_ID}", [line]
+                )
+        else:
+            print("No new lines.")
 
