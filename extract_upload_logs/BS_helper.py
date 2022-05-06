@@ -56,7 +56,7 @@ class BS_helper():
         )
         return r.json()["items"]
 
-    def get_club_league_matchs(self, name, tag, battlelog):
+    def get_club_league_matchs(self, day, name, tag, battlelog):
         lines = []
         for battle in battlelog:
             time = battle["battleTime"]
@@ -70,6 +70,7 @@ class BS_helper():
                 line["mode"] = battle_details['mode']
                 line["result"] = battle_details["result"]
                 line["timestamp"] = time
+                line["day"] = day
                 lines.append(line)
             elif 'mode' in battle_details and battle_details['mode'] != "soloShowdown" and battle_details['mode'] != "duoShowdown" and 'type' in battle_details and battle_details['type'] != 'challenge':
                 if 'trophyChange' in battle_details and battle_details['trophyChange'] != 8 and battle_details['trophyChange'] > 0 and battle_details['trophyChange'] < 5:
@@ -80,6 +81,7 @@ class BS_helper():
                     line["timestamp"] = time
                     line["mode"] = battle_details['mode']
                     line["result"] = battle_details["result"]
+                    line["day"] = day
                     lines.append(line)
         return lines
 
@@ -108,7 +110,7 @@ class BS_helper():
 
     def upload_lines(self, lines_to_add):
         if len(lines_to_add) != 0:
-            print(len(new_lines_to_add), "new lines.")
+            print(len(lines_to_add), "new lines.")
             for line in lines_to_add:
                 PROJECT_ID = "bs-club-dash"
                 DATASET_ID = "club_logs"

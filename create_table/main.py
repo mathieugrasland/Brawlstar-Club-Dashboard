@@ -18,7 +18,8 @@ def main(request, context):
         bigquery.SchemaField("points", "INT64", mode="REQUIRED"),
         bigquery.SchemaField("result", "STRING", mode="REQUIRED"),
         bigquery.SchemaField("mode", "STRING", mode="REQUIRED"),
-        bigquery.SchemaField("timestamp", "STRING", mode="REQUIRED")
+        bigquery.SchemaField("timestamp", "STRING", mode="REQUIRED"),
+        bigquery.SchemaField("day", "STRING", mode="REQUIRED")
     ]
 
     table = bigquery.Table(f"{PROJECT_ID}.{DATASET_ID}.{TABLE_ID}", schema=schema)
