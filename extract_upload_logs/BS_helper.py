@@ -100,9 +100,12 @@ class BS_helper():
         current_db = self.get_current_db()
         tag_list = list(current_db['tag'])
         timestamp_list = list(current_db['timestamp'])
+        keys = []
+        for i in range(len(tag_list)):
+            keys.append((tag_list[i], timestamp_list[i]))
         new_lines_to_add = []
         for line in lines_to_add:
-            if line['tag'] not in tag_list and line['tag'] not in timestamp_list:
+            if (line['tag'], line['timestamp']) not in keys:
                 new_lines_to_add.append(line)
         print(len(new_lines_to_add), "new lines.")
         return new_lines_to_add
