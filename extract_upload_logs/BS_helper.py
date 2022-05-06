@@ -104,11 +104,11 @@ class BS_helper():
         for line in lines_to_add:
             if line['tag'] not in tag_list and line['tag'] not in timestamp_list:
                 new_lines_to_add.append(line)
-        print(len(new_lines_to_add), "new lines.")
         return new_lines_to_add
 
     def upload_lines(self, lines_to_add):
         if len(lines_to_add) != 0:
+            print(len(new_lines_to_add), "new lines.")
             for line in lines_to_add:
                 PROJECT_ID = "bs-club-dash"
                 DATASET_ID = "club_logs"

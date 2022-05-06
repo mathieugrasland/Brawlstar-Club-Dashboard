@@ -2,6 +2,7 @@ from BS_helper import BS_helper
 import json
 from google.cloud import bigquery
 from google.cloud import secretmanager
+import base64
 
 # TODO ACCESS GOOGLE SECRETS
 config = json.load(open("config.json"))
@@ -10,6 +11,8 @@ club_tag = config["club_tag"]
 
 
 def main(request, context):
+    pubsub_message = json.loads(base64.b64decode(request['data']).decode('utf-8'))
+    print(pubsub_message)
     BS = BS_helper(token)
     # GET ALL PLAYERS
     tag_to_name = BS.get_tag_to_name(club_tag)
