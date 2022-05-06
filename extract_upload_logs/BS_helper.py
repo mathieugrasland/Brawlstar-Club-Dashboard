@@ -70,7 +70,6 @@ class BS_helper():
                 line["mode"] = battle_details['mode']
                 line["result"] = battle_details["result"]
                 line["timestamp"] = time
-                line["day"] = day
                 lines.append(line)
             elif 'mode' in battle_details and battle_details['mode'] != "soloShowdown" and battle_details['mode'] != "duoShowdown" and 'type' in battle_details and battle_details['type'] != 'challenge':
                 if 'trophyChange' in battle_details and battle_details['trophyChange'] != 8 and battle_details['trophyChange'] > 0 and battle_details['trophyChange'] < 5:
@@ -81,7 +80,6 @@ class BS_helper():
                     line["timestamp"] = time
                     line["mode"] = battle_details['mode']
                     line["result"] = battle_details["result"]
-                    line["day"] = day
                     lines.append(line)
         return lines
 
