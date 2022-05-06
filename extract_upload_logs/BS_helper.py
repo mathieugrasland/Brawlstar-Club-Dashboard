@@ -70,6 +70,7 @@ class BS_helper():
                 line["mode"] = battle_details['mode']
                 line["result"] = battle_details["result"]
                 line["timestamp"] = time
+                line["used_tickets"] = 2
                 lines.append(line)
             elif 'mode' in battle_details and battle_details['mode'] != "soloShowdown" and battle_details['mode'] != "duoShowdown" and 'type' in battle_details and battle_details['type'] != 'challenge':
                 if 'trophyChange' in battle_details and battle_details['trophyChange'] != 8 and battle_details['trophyChange'] > 0 and battle_details['trophyChange'] < 5:
@@ -80,6 +81,7 @@ class BS_helper():
                     line["timestamp"] = time
                     line["mode"] = battle_details['mode']
                     line["result"] = battle_details["result"]
+                    line["used_tickets"] = 1
                     lines.append(line)
         return lines
 
@@ -120,6 +122,7 @@ class BS_helper():
                 errors = client.insert_rows_json(
                     f"{PROJECT_ID}.{DATASET_ID}.{TABLE_ID}", [line]
                 )
+                print(str(errors))
         else:
             print("No new lines.")
 
