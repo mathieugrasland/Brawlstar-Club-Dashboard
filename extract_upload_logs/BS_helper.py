@@ -122,7 +122,8 @@ class BS_helper():
                 errors = client.insert_rows_json(
                     f"{PROJECT_ID}.{DATASET_ID}.{TABLE_ID}", [line]
                 )
-                print(str(errors))
+                if errors:
+                    print(str(errors))
         else:
             print("No new lines.")
 
