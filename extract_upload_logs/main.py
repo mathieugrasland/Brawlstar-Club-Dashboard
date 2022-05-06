@@ -11,8 +11,8 @@ club_tag = config["club_tag"]
 
 
 def main(request, context):
-    # pubsub_message = json.loads(base64.b64decode(request['data']).decode('utf-8'))
-    # day = pubsub_message["day"]
+    pubsub_message = json.loads(base64.b64decode(request['data']).decode('utf-8'))
+    day = pubsub_message["day"]
     BS = BS_helper(token)
     # GET ALL PLAYERS
     tag_to_name = BS.get_tag_to_name(club_tag)
