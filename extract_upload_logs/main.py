@@ -14,7 +14,7 @@ secrets = secretmanager.SecretManagerServiceClient()
 bs_secrets = secrets.access_secret_version(request={"name": "projects/"+ PROJECT_NUMBER +"/secrets/bs-dashboard-secrets/versions/latest"}).payload.data.decode("utf-8")
 bs_secrets = json.loads(bs_secrets)
 
-token = bs_secrets['token']
+token = bs_secrets['BS_token']
 club_tag = bs_secrets['club_tag']
 
 
