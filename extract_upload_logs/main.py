@@ -10,7 +10,14 @@ token = config["BS_token"]
 club_tag = config["club_tag"]
 
 
+secrets = secretmanager.SecretManagerServiceClient()
+bs_secrets = secrets.access_secret_version(request={"name": "projects/505821013216/secrets/bs-dashboard-secrets/versions/latest"}).payload.data.decode("utf-8")
+print(bs_secrets)
+
+
+
 def main(request, context):
+    print("START")
     pubsub_message = json.loads(base64.b64decode(request['data']).decode('utf-8'))
     day = pubsub_message["day"]
     BS = BS_helper(token)
@@ -28,3 +35,4 @@ def main(request, context):
     lines_to_add = BS.only_new_lines(lines_to_add)
     # UPLOAD
     BS.upload_lines(lines_to_add)
+    print("END")
