@@ -3,16 +3,18 @@ import json
 from google.cloud import bigquery
 from google.cloud import secretmanager
 import base64
+import os
 
 # TODO ACCESS GOOGLE SECRETS
 config = json.load(open("config.json"))
 token = config["BS_token"]
 club_tag = config["club_tag"]
 
-
+print(os.environ)
 secrets = secretmanager.SecretManagerServiceClient()
 bs_secrets = secrets.access_secret_version(request={"name": "projects/505821013216/secrets/bs-dashboard-secrets/versions/latest"}).payload.data.decode("utf-8")
 print(bs_secrets)
+print(bs_secrets['club_tag'])
 
 
 
