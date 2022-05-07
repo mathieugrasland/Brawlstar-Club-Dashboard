@@ -16,14 +16,16 @@ bs_secrets = json.loads(bs_secrets)
 
 token = bs_secrets['BS_token']
 club_tag = bs_secrets['club_tag']
-
+PROJECT_ID = bs_secrets['PROJECT_ID']
+DATASET_ID = bs_secrets['DATASET_ID']
+TABLE_ID = bs_secrets['TABLE_ID']
 
 
 def main(request, context):
     print("START")
     pubsub_message = json.loads(base64.b64decode(request['data']).decode('utf-8'))
     day = pubsub_message["day"]
-    BS = BS_helper(token)
+    BS = BS_helper(token, PROJECT_ID, DATASET_ID, TABLE_ID)
     # GET ALL PLAYERS
     tag_to_name = BS.get_tag_to_name(club_tag)
     # ONLY LEAGUE MATCH

@@ -6,12 +6,15 @@ import pandas as pd
 
 class BS_helper():
 
-    def __init__(self, token):
+    def __init__(self, token, PROJECT_ID, DATASET_ID, TABLE_ID):
         self.url_api = "https://api.brawlstars.com/"
         self.url_v = "v1/"
         self.url = self.url_api + self.url_v
         self.token = token
         self.headers = {'Authorization': self.token}
+        self.PROJECT_ID = PROJECT_ID
+        self.DATASET_ID = DATASET_ID
+        self.TABLE_ID = TABLE_ID
 
     def get_club(self, club_tag):
         # Define the endpoint to use
@@ -74,7 +77,6 @@ class BS_helper():
                 line["day"] = day
                 line["with_club_mate"] = line["points"] in [9, 5]
                 lines.append(line)
-                print(line)
             elif 'mode' in battle_details and battle_details['mode'] != "soloShowdown" and battle_details['mode'] != "duoShowdown" and 'type' in battle_details and battle_details['type'] != 'challenge':
                 if 'trophyChange' in battle_details and battle_details['trophyChange'] != 8 and battle_details['trophyChange'] > 0 and battle_details['trophyChange'] < 5:
                     line = {}
@@ -91,9 +93,9 @@ class BS_helper():
         return lines
 
     def get_current_db(self):
-        PROJECT_ID = "bs-club-dash"
-        DATASET_ID = "club_logs"
-        TABLE_ID = "battle_logs"
+        PROJECT_ID = self.PROJECT_ID
+        DATASET_ID = self.DATASET_ID
+        TABLE_ID = self.TABLE_ID
         bqclient = bigquery.Client()
         # Download query results.
         query_string = f"""
@@ -119,10 +121,10 @@ class BS_helper():
     def upload_lines(self, lines_to_add):
         if len(lines_to_add) != 0:
             print(len(lines_to_add), "new lines.")
+            PROJECT_ID = self.PROJECT_ID
+            DATASET_ID = self.DATASET_ID
+            TABLE_ID = self.TABLE_ID
             for line in lines_to_add:
-                PROJECT_ID = "bs-club-dash"
-                DATASET_ID = "club_logs"
-                TABLE_ID = "battle_logs"
                 client = bigquery.Client()
                 errors = client.insert_rows_json(
                     f"{PROJECT_ID}.{DATASET_ID}.{TABLE_ID}", [line]
