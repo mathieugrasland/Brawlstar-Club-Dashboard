@@ -13,13 +13,18 @@ def main(request, context):
 
     # 1) create table
     schema = [
+        bigquery.SchemaField("season", "STRING", mode="REQUIRED"),
+        bigquery.SchemaField("day", "STRING", mode="REQUIRED"),
+        bigquery.SchemaField("datetime", "DATETIME", mode="REQUIRED"),
+        bigquery.SchemaField("timestamp", "STRING", mode="REQUIRED"),
         bigquery.SchemaField("name", "STRING", mode="REQUIRED"),
         bigquery.SchemaField("tag", "STRING", mode="REQUIRED"),
-        bigquery.SchemaField("points", "INT64", mode="REQUIRED"),
         bigquery.SchemaField("result", "STRING", mode="REQUIRED"),
         bigquery.SchemaField("mode", "STRING", mode="REQUIRED"),
-        bigquery.SchemaField("timestamp", "STRING", mode="REQUIRED"),
-        bigquery.SchemaField("used_tickets", "INT64", mode="REQUIRED")
+        bigquery.SchemaField("brawler", "STRING", mode="REQUIRED"),
+        bigquery.SchemaField("points", "INT64", mode="REQUIRED"),
+        bigquery.SchemaField("used_tickets", "INT64", mode="REQUIRED"),
+        bigquery.SchemaField("with_club_mate", "BOOLEAN", mode="REQUIRED")
     ]
 
     table = bigquery.Table(f"{PROJECT_ID}.{DATASET_ID}.{TABLE_ID}", schema=schema)
