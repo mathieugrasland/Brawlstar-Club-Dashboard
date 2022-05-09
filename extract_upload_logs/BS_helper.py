@@ -86,9 +86,20 @@ class BS_helper():
                 line["result"] = battle_details["result"]
                 line["timestamp"] = time
                 line["used_tickets"] = 2
+                # START DAY
+                date_parsed = datetime.strptime(time, '%Y%m%dT%H%M%S.%fZ')
+                weekday = date_parsed.strftime("%A")
+                if weekday in ['Wednesday', 'Thursday']:
+                    day = "J1"
+                if weekday in ['Friday', 'Saturday']:
+                    day = "J2"
+                if weekday in ['Sunday', 'Monday']:
+                    day = "J3"
                 line["day"] = day
+                # END DAY
                 line["with_club_mate"] = line["points"] in [9, 5]
                 line["datetime"] = time[0:4] + "-" + time[4:6] + "-" + time[6:11] + ":" + time[11:13] + ":" + time[13:19]
+                line["seasonday"] = line["season"] + " " + line["day"]
                 lines.append(line)
             elif 'mode' in battle_details and battle_details['mode'] != "soloShowdown" and battle_details['mode'] != "duoShowdown" and 'type' in battle_details and battle_details['type'] != 'challenge':
                 if 'trophyChange' in battle_details and battle_details['trophyChange'] != 8 and battle_details['trophyChange'] > 0 and battle_details['trophyChange'] < 5:
@@ -112,9 +123,20 @@ class BS_helper():
                     line["mode"] = battle_details['mode']
                     line["result"] = battle_details["result"]
                     line["used_tickets"] = 1
+                    # START DAY
+                    date_parsed = datetime.strptime(time, '%Y%m%dT%H%M%S.%fZ')
+                    weekday = date_parsed.strftime("%A")
+                    if weekday in ['Wednesday', 'Thursday']:
+                        day = "J1"
+                    if weekday in ['Friday', 'Saturday']:
+                        day = "J2"
+                    if weekday in ['Sunday', 'Monday']:
+                        day = "J3"
                     line["day"] = day
+                    # END DAY
                     line["with_club_mate"] = line["points"] in [4, 3]
                     line["datetime"] = time[0:4] + "-" + time[4:6] + "-" + time[6:11] + ":" + time[11:13] + ":" + time[13:19]
+                    line["seasonday"] = line["season"] + " " + line["day"]
                     lines.append(line)
         return lines
 

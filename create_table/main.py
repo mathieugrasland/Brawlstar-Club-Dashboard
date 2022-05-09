@@ -13,6 +13,7 @@ def main(request, context):
 
     # 1) create table
     schema = [
+        bigquery.SchemaField("seasonday", "STRING", mode="REQUIRED"),
         bigquery.SchemaField("season", "STRING", mode="REQUIRED"),
         bigquery.SchemaField("day", "STRING", mode="REQUIRED"),
         bigquery.SchemaField("datetime", "DATETIME", mode="REQUIRED"),
