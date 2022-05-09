@@ -1,6 +1,7 @@
 import requests
 from google.cloud import bigquery
 import pandas as pd
+from datetime import datetime, timedelta
 # from google.cloud import secretmanager
 
 
@@ -64,9 +65,20 @@ class BS_helper():
         for battle in battlelog:
             time = battle["battleTime"]
             battle_details = battle["battle"]
-            #
             if 'type' in battle_details and battle_details['type'] == "teamRanked" and 'trophyChange' in battle_details:
                 line = {}
+                # START Brawler
+                teams = battle_details["teams"]
+                for team in teams:
+                    for player in team:
+                        if tag == player["tag"]:
+                            brawler = player["brawler"]["name"]
+                line["brawler"] = brawler
+                # END Brawler
+                # START SEASON
+                date_parsed = datetime.strptime(time, '%Y%m%dT%H%M%S%3fZ') + timedelta(days=-1)
+                line["season"] = "Saison " + str(int(date_parsed.strftime("%Y%W")) - 202218)
+                # END SEASON
                 line["name"] = name
                 line["tag"] = tag
                 line["points"] = battle_details['trophyChange']
@@ -81,6 +93,18 @@ class BS_helper():
             elif 'mode' in battle_details and battle_details['mode'] != "soloShowdown" and battle_details['mode'] != "duoShowdown" and 'type' in battle_details and battle_details['type'] != 'challenge':
                 if 'trophyChange' in battle_details and battle_details['trophyChange'] != 8 and battle_details['trophyChange'] > 0 and battle_details['trophyChange'] < 5:
                     line = {}
+                    # START Brawler
+                    teams = battle_details["teams"]
+                    for team in teams:
+                        for player in team:
+                            if tag == player["tag"]:
+                                brawler = player["brawler"]["name"]
+                    line["brawler"] = brawler
+                    # END Brawler
+                    # START SEASON
+                    date_parsed = datetime.strptime(time, '%Y%m%dT%H%M%S%3fZ') + timedelta(days=-1)
+                    line["season"] = "Saison " + str(int(date_parsed.strftime("%Y%W")) - 202218)
+                    # END SEASON
                     line["name"] = name
                     line["tag"] = tag
                     line["points"] = battle_details['trophyChange']
