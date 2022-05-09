@@ -76,7 +76,7 @@ class BS_helper():
                 line["brawler"] = brawler
                 # END Brawler
                 # START SEASON
-                date_parsed = datetime.strptime(time, '%Y%m%dT%H%M%S%fZ') + timedelta(days=-1)
+                date_parsed = datetime.strptime(time, '%Y%m%dT%H%M%S.%fZ') + timedelta(days=-1)
                 line["season"] = "Saison " + str(int(date_parsed.strftime("%Y%W")) - 202218)
                 # END SEASON
                 line["name"] = name
@@ -102,7 +102,7 @@ class BS_helper():
                     line["brawler"] = brawler
                     # END Brawler
                     # START SEASON
-                    date_parsed = datetime.strptime(time, '%Y%m%dT%H%M%S%fZ') + timedelta(days=-1)
+                    date_parsed = datetime.strptime(time, '%Y%m%dT%H%M%S.%fZ') + timedelta(days=-1)
                     line["season"] = "Saison " + str(int(date_parsed.strftime("%Y%W")) - 202218)
                     # END SEASON
                     line["name"] = name
