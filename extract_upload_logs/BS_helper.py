@@ -102,7 +102,7 @@ class BS_helper():
                 line["seasonday"] = line["season"] + " " + line["day"]
                 lines.append(line)
             elif 'mode' in battle_details and battle_details['mode'] != "soloShowdown" and battle_details['mode'] != "duoShowdown" and 'type' in battle_details and battle_details['type'] != 'challenge':
-                if 'trophyChange' in battle_details and battle_details['trophyChange'] != 8 and battle_details['trophyChange'] > 0 and battle_details['trophyChange'] < 5:
+                if 'trophyChange' in battle_details and battle_details['trophyChange'] > 0 and battle_details['trophyChange'] < 5:
                     line = {}
                     # START Brawler
                     teams = battle_details["teams"]
