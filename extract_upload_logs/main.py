@@ -1,17 +1,16 @@
-from BS_helper import BS_helper
-import json
-from google.cloud import bigquery
-from google.cloud import secretmanager
 import base64
-import os
 import json
+import os
 
+from BS_helper import BS_helper
+from google.cloud import secretmanager
 
 PROJECT_NUMBER = os.environ.get("PROJECT_NUMBER")
 
 secrets = secretmanager.SecretManagerServiceClient()
 
-bs_secrets = secrets.access_secret_version(request={"name": "projects/"+ PROJECT_NUMBER +"/secrets/bs-dashboard-secrets/versions/latest"}).payload.data.decode("utf-8")
+bs_secrets = secrets.access_secret_version(
+    request={"name": "projects/" + PROJECT_NUMBER + "/secrets/bs-dashboard-secrets/versions/latest"}).payload.data.decode("utf-8")
 bs_secrets = json.loads(bs_secrets)
 
 token = bs_secrets['BS_token']
@@ -23,7 +22,8 @@ TABLE_ID = bs_secrets['TABLE_ID']
 
 def main(request, context):
     print("START")
-    pubsub_message = json.loads(base64.b64decode(request['data']).decode('utf-8'))
+    pubsub_message = json.loads(
+        base64.b64decode(request['data']).decode('utf-8'))
     day = pubsub_message["day"]
     BS = BS_helper(token, PROJECT_ID, DATASET_ID, TABLE_ID)
     # GET ALL PLAYERS
@@ -35,7 +35,7 @@ def main(request, context):
         battlelog = BS.get_player_battlelog(tag)
         lines = BS.get_club_league_matchs(day, name, tag, battlelog)
         lines_to_add += lines
-    print(len(lines_to_add), "lines to add before check")
+    print(len(lines_to_add), " lines to add before check")
     # ONLY NEW RECORDS
     lines_to_add = BS.only_new_lines(lines_to_add)
     # UPLOAD

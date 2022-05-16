@@ -1,5 +1,4 @@
 from google.cloud import bigquery
-from google.cloud import secretmanager
 
 # TODO get secrets
 PROJECT_ID = "bs-club-dash"

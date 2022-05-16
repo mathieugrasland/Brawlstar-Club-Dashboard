@@ -1,0 +1,311 @@
+{
+  "tag": "#YPQ9UGU",
+  "name": "DDS",
+  "description": "Maison mère de la DDS Academy 🏠Légendaire II",
+  "type": "inviteOnly",
+  "badgeId": 8000012,
+  "requiredTrophies": 7000,
+  "trophies": 790785,
+  "members": [
+    {
+      "tag": "#LUUGUJVQ",
+      "name": "💠 GoJo 💠",
+      "nameColor": "0xff1ba5f5",
+      "role": "member",
+      "trophies": 44178,
+      "icon": {
+        "id": 28000060
+      }
+    },
+    {
+      "tag": "#9RGCQ0UYC",
+      "name": "⚡️ Sukuna ⚡️",
+      "nameColor": "0xfff9c908",
+      "role": "senior",
+      "trophies": 41545,
+      "icon": {
+        "id": 28000069
+      }
+    },
+    {
+      "tag": "#99RLU8LQ",
+      "name": "Paffiver",
+      "nameColor": "0xffff9727",
+      "role": "president",
+      "trophies": 38286,
+      "icon": {
+        "id": 28000020
+      }
+    },
+    {
+      "tag": "#2PC8U08Q",
+      "name": "♣️megumi♣️",
+      "nameColor": "0xffffce89",
+      "role": "member",
+      "trophies": 36534,
+      "icon": {
+        "id": 28000078
+      }
+    },
+    {
+      "tag": "#9GY2PU0Q",
+      "name": "tonio",
+      "nameColor": "0xffa2e3fe",
+      "role": "vicePresident",
+      "trophies": 35773,
+      "icon": {
+        "id": 28000070
+      }
+    },
+    {
+      "tag": "#GRL0JLVG",
+      "name": "🌑🈲Kãgâmíī㊙️🎴",
+      "nameColor": "0xffffffff",
+      "role": "member",
+      "trophies": 34909,
+      "icon": {
+        "id": 28000079
+      }
+    },
+    {
+      "tag": "#29RG28UJY",
+      "name": "bab2o",
+      "nameColor": "0xffa8e132",
+      "role": "vicePresident",
+      "trophies": 32180,
+      "icon": {
+        "id": 28000061
+      }
+    },
+    {
+      "tag": "#8L9QQYC2",
+      "name": "CaptainDirty",
+      "nameColor": "0xff1ba5f5",
+      "role": "vicePresident",
+      "trophies": 31705,
+      "icon": {
+        "id": 28000079
+      }
+    },
+    {
+      "tag": "#22JJ92GP2",
+      "name": "Raptoris",
+      "nameColor": "0xfff9c908",
+      "role": "senior",
+      "trophies": 30836,
+      "icon": {
+        "id": 28000079
+      }
+    },
+    {
+      "tag": "#L0VRP2G9",
+      "name": "mthg_",
+      "nameColor": "0xffff9727",
+      "role": "vicePresident",
+      "trophies": 30332,
+      "icon": {
+        "id": 28000084
+      }
+    },
+    {
+      "tag": "#RVJQPP8G",
+      "name": "Louis",
+      "nameColor": "0xfff05637",
+      "role": "member",
+      "trophies": 30193,
+      "icon": {
+        "id": 28000061
+      }
+    },
+    {
+      "tag": "#U20VP2L2",
+      "name": "poseidon",
+      "nameColor": "0xff4ddba2",
+      "role": "vicePresident",
+      "trophies": 28738,
+      "icon": {
+        "id": 28000056
+      }
+    },
+    {
+      "tag": "#280CU8P8Y",
+      "name": "Maitre Yoda",
+      "nameColor": "0xff4ddba2",
+      "role": "member",
+      "trophies": 28163,
+      "icon": {
+        "id": 28000088
+      }
+    },
+    {
+      "tag": "#L29YPY8G",
+      "name": "Hermione",
+      "nameColor": "0xffa2e3fe",
+      "role": "vicePresident",
+      "trophies": 26774,
+      "icon": {
+        "id": 28000036
+      }
+    },
+    {
+      "tag": "#PCYC9V2Q0",
+      "name": "HugoNeet🚭",
+      "nameColor": "0xffa2e3fe",
+      "role": "member",
+      "trophies": 26248,
+      "icon": {
+        "id": 28000051
+      }
+    },
+    {
+      "tag": "#CCVV0RUQ",
+      "name": "LeK",
+      "nameColor": "0xffff8afb",
+      "role": "senior",
+      "trophies": 25854,
+      "icon": {
+        "id": 28000008
+      }
+    },
+    {
+      "tag": "#PVJCL00P",
+      "name": "Thomazinho",
+      "nameColor": "0xfff05637",
+      "role": "vicePresident",
+      "trophies": 25544,
+      "icon": {
+        "id": 28000032
+      }
+    },
+    {
+      "tag": "#Y09GU88RJ",
+      "name": "RaZoR",
+      "nameColor": "0xffffce89",
+      "role": "member",
+      "trophies": 24866,
+      "icon": {
+        "id": 28000064
+      }
+    },
+    {
+      "tag": "#R2UPR9VC",
+      "name": "bazook.F",
+      "nameColor": "0xfff9775d",
+      "role": "senior",
+      "trophies": 22648,
+      "icon": {
+        "id": 28000088
+      }
+    },
+    {
+      "tag": "#YR9UGCV8",
+      "name": "Kralito",
+      "nameColor": "0xffcb5aff",
+      "role": "member",
+      "trophies": 22222,
+      "icon": {
+        "id": 28000056
+      }
+    },
+    {
+      "tag": "#9P8JPLG2G",
+      "name": "Warlex",
+      "nameColor": "0xff1ba5f5",
+      "role": "senior",
+      "trophies": 22151,
+      "icon": {
+        "id": 28000013
+      }
+    },
+    {
+      "tag": "#YY82CQ9R",
+      "name": "kozuka98",
+      "nameColor": "0xffff9727",
+      "role": "member",
+      "trophies": 20290,
+      "icon": {
+        "id": 28000033
+      }
+    },
+    {
+      "tag": "#JQLGVVP8",
+      "name": "Zeuss",
+      "nameColor": "0xff1ba5f5",
+      "role": "senior",
+      "trophies": 20051,
+      "icon": {
+        "id": 28000050
+      }
+    },
+    {
+      "tag": "#VYCUP02",
+      "name": "Cryox",
+      "nameColor": "0xffcb5aff",
+      "role": "senior",
+      "trophies": 19864,
+      "icon": {
+        "id": 28000070
+      }
+    },
+    {
+      "tag": "#YY8VGJ9UR",
+      "name": "Clot",
+      "nameColor": "0xffcb5aff",
+      "role": "vicePresident",
+      "trophies": 19342,
+      "icon": {
+        "id": 28000066
+      }
+    },
+    {
+      "tag": "#2998YYCUP",
+      "name": "BOOTES",
+      "nameColor": "0xfff9c908",
+      "role": "senior",
+      "trophies": 19132,
+      "icon": {
+        "id": 28000027
+      }
+    },
+    {
+      "tag": "#8G8YVU0VU",
+      "name": "Croqueur",
+      "nameColor": "0xffffffff",
+      "role": "member",
+      "trophies": 18100,
+      "icon": {
+        "id": 28000001
+      }
+    },
+    {
+      "tag": "#YQPRCLC9J",
+      "name": "Juliette",
+      "nameColor": "0xff4ddba2",
+      "role": "senior",
+      "trophies": 17250,
+      "icon": {
+        "id": 28000072
+      }
+    },
+    {
+      "tag": "#P0UULUC2R",
+      "name": "ulyssigno",
+      "nameColor": "0xffffce89",
+      "role": "senior",
+      "trophies": 9073,
+      "icon": {
+        "id": 28000084
+      }
+    },
+    {
+      "tag": "#L2J88PJU9",
+      "name": "Paffiver Fils",
+      "nameColor": "0xff1ba5f5",
+      "role": "member",
+      "trophies": 8004,
+      "icon": {
+        "id": 28000012
+      }
+    }
+  ]
+}
