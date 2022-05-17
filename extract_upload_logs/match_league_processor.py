@@ -3,12 +3,13 @@ from datetime import datetime, timedelta
 
 def get_brawler(tag, line, battle_details):
     brawler = "BRAWLER ERROR"
-    teams = battle_details["teams"]
-    for team in teams:
-        for player in team:
-            if tag == player["tag"]:
-                brawler = player["brawler"]["name"]
-    line["brawler"] = brawler
+    if 'teams' in battle_details:
+        teams = battle_details["teams"]
+        for team in teams:
+            for player in team:
+                if tag == player["tag"]:
+                    brawler = player["brawler"]["name"]
+        line["brawler"] = brawler
     return line
 
 
