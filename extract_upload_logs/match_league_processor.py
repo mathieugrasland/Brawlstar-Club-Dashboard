@@ -55,7 +55,8 @@ def get_timestamp(line, time):
 
 
 def get_match_details(line, battle_details):
-    line["points"] = battle_details['trophyChange']
+    if "trophyChange" in battle_details:
+        line["points"] = battle_details['trophyChange']
     line["mode"] = battle_details['mode']
     line["result"] = battle_details["result"]
     return line
