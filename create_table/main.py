@@ -1,10 +1,19 @@
 from google.cloud import bigquery
 from google.cloud import secretmanager
+import json
+import os
 
-# TODO get secrets
-PROJECT_ID = "bs-club-dash"
-DATASET_ID = "club_logs"
-TABLE_ID = "battle_logs"
+PROJECT_NUMBER = os.environ.get("PROJECT_NUMBER")
+
+secrets = secretmanager.SecretManagerServiceClient()
+
+bs_secrets = secrets.access_secret_version(request={"name": "projects/" + PROJECT_NUMBER + "/secrets/bs-dashboard-secrets/versions/latest"}).payload.data.decode("utf-8")
+bs_secrets = json.loads(bs_secrets)
+
+club_tag = bs_secrets['club_tag']
+PROJECT_ID = bs_secrets['PROJECT_ID']
+DATASET_ID = bs_secrets['DATASET_ID']
+TABLE_ID = bs_secrets['TABLE_ID']
 
 
 def main(request, context):
