@@ -64,6 +64,7 @@ class BS_helper:
         for battle in battlelog:
             time = battle["battleTime"]
             battle_details = battle["battle"]
+            print(battle_details)
             line = {}
             line = get_brawler(tag, line, battle_details)
             line = get_season(line, time)

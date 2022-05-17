@@ -59,5 +59,6 @@ def get_match_details(line, battle_details):
     if "trophyChange" in battle_details:
         line["points"] = battle_details['trophyChange']
     line["mode"] = battle_details['mode']
-    line["result"] = battle_details["result"]
+    if "result" in battle_details:
+        line["result"] = battle_details["result"]
     return line
