@@ -34,7 +34,8 @@ def main(request, context):
     print(len(lines_to_add), "lines to add before check")
     # ONLY NEW RECORDS
     lines_to_add = BS.only_new_lines(lines_to_add)
-    print("Lines that will be added :")
+    if lines_to_add:
+        print("Lines that will be added :")
     for i,line in enumerate(lines_to_add):
         print(i+1, ":", line)
     # UPLOAD
