@@ -61,4 +61,6 @@ def get_match_details(line, battle_details):
     line["mode"] = battle_details['mode']
     if "result" in battle_details:
         line["result"] = battle_details["result"]
+    if "type" in battle_details:
+        line["type"] = battle_details["type"]
     return line
