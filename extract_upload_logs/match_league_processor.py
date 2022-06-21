@@ -64,3 +64,16 @@ def get_match_details(line, battle_details):
     if "type" in battle_details:
         line["type"] = battle_details["type"]
     return line
+
+
+def get_map(line, event):
+    line["map_id"] = str(event["id"])
+    line["map_name"] = event["map"]
+    return line
+
+
+def get_starplayer(line, tag, battle_details):
+    starplayer = battle_details["starPlayer"]
+    tag_starplayer = starplayer["tag"]
+    line["starplayer"] = tag == tag_starplayer
+    return line

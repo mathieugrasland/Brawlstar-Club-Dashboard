@@ -2,6 +2,7 @@ import requests
 from google.cloud import bigquery
 from match_league_processor import get_brawler, get_season, get_day, get_datetime
 from match_league_processor import get_seasonday, get_player, get_timestamp, get_match_details
+from match_league_processor import get_map, get_starplayer
 
 
 class BS_helper:
@@ -64,6 +65,7 @@ class BS_helper:
         for battle in battlelog:
             time = battle["battleTime"]
             battle_details = battle["battle"]
+            event = battle["event"]
             line = {}
             line = get_brawler(tag, line, battle_details)
             line = get_season(line, time)
@@ -72,6 +74,8 @@ class BS_helper:
             line = get_timestamp(line, time)
             line = get_seasonday(line)
             line = get_player(line, name, tag)
+            line = get_map(line, event)
+            line = get_starplayer(line, tag, battle_details)
             line = get_match_details(line, battle_details)
             if 'type' in battle_details and battle_details['type'] == "teamRanked" and 'trophyChange' in battle_details:
                 line["used_tickets"] = 2
