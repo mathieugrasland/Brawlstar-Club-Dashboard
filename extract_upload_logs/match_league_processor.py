@@ -74,10 +74,8 @@ def get_map(line, event):
 
 def get_starplayer(line, tag, battle_details):
     is_sp = False
-    print(battle_details)
-    if "starPlayer" in battle_details:
+    if "starPlayer" in battle_details and battle_details["starPlayer"] is not None:
         starplayer = battle_details["starPlayer"]
-        print(starplayer)
         tag_starplayer = starplayer["tag"]
         is_sp = tag == tag_starplayer
     line["starplayer"] = is_sp
