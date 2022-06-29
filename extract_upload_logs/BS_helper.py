@@ -64,6 +64,7 @@ class BS_helper:
         lines = []
         for battle in battlelog:
             time = battle["battleTime"]
+            print(battle)
             battle_details = battle["battle"]
             event = battle["event"]
             line = {}
