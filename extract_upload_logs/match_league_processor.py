@@ -9,6 +9,7 @@ def get_brawler(tag, line, battle_details):
             for player in team:
                 if tag == player["tag"]:
                     brawler = player["brawler"]["name"]
+        brawler = brawler.replace("\n", " ")
         line["brawler"] = brawler
     return line
 
