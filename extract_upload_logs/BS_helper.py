@@ -63,7 +63,7 @@ class BS_helper:
         return r.json()["items"]
 
 
-    def get_current_season():
+    def get_current_season(self):
         tz = pytz.timezone("Europe/Paris")
         now = datetime.now(tz=tz)
         # WEEK 18 OF YEAR 2022 TO BE THE SAISON 0 OF THE RECORDS
