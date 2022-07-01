@@ -4,3 +4,4 @@ google-cloud-secret-manager
 pandas
 db-dtypes
 datetime
+pytz

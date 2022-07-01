@@ -1,4 +1,6 @@
 import requests
+import pytz
+from datetime import datetime
 from google.cloud import bigquery
 from match_league_processor import get_brawler, get_season, get_day, get_datetime
 from match_league_processor import get_seasonday, get_player, get_timestamp, get_match_details
@@ -60,7 +62,17 @@ class BS_helper:
         )
         return r.json()["items"]
 
+
+    def get_current_season():
+        tz = pytz.timezone("Europe/Paris")
+        now = datetime.now(tz=tz)
+        # WEEK 18 OF YEAR 2022 TO BE THE SAISON 0 OF THE RECORDS
+        current_season = "Saison " + str(int(now.strftime("%Y%W")) - 202218)
+        return current_season
+
+
     def get_club_league_matchs(self, name, tag, battlelog):
+        current_season = self.get_current_season()
         lines = []
         for battle in battlelog:
             time = battle["battleTime"]
@@ -78,11 +90,11 @@ class BS_helper:
                 line = get_map(line, event)
                 line = get_starplayer(line, tag, battle_details)
                 line = get_match_details(line, battle_details)
-                if 'type' in battle_details and battle_details['type'] == "teamRanked" and 'trophyChange' in battle_details:
+                if 'type' in battle_details and battle_details['type'] == "teamRanked" and 'trophyChange' in battle_details and line["season"]==current_season:
                     line["used_tickets"] = 2
                     line["with_club_mate"] = line["points"] in [9, 5]
                     lines.append(line)
-                elif 'mode' in battle_details and battle_details['mode'] != "soloShowdown" and battle_details['mode'] != "duoShowdown" and 'type' in battle_details and battle_details['type'] != 'challenge' and battle_details['type'] != "championshipChallenge":
+                elif 'mode' in battle_details and battle_details['mode'] != "soloShowdown" and battle_details['mode'] != "duoShowdown" and 'type' in battle_details and battle_details['type'] != 'challenge' and battle_details['type'] != "championshipChallenge" and line["season"]==current_season:
                     if 'trophyChange' in battle_details and 0 < battle_details['trophyChange'] < 5:
                         line["used_tickets"] = 1
                         line["with_club_mate"] = line["points"] in [4, 3]
