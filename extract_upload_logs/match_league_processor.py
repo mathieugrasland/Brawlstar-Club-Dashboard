@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+import pytz
 
 
 def get_brawler(tag, line, battle_details):
@@ -12,6 +13,14 @@ def get_brawler(tag, line, battle_details):
         brawler = brawler.replace("\n", " ")
         line["brawler"] = brawler
     return line
+
+
+def current_season():
+    tz = pytz.timezone("Europe/Paris")
+    now = datetime.now(tz=tz) + timedelta(days=-1)
+    # WEEK 18 OF YEAR 2022 TO BE THE SAISON 0 OF THE RECORDS
+    current = "Saison " + str(int(now.strftime("%Y%W")) - 202218)
+    return current
 
 
 def get_season(line, time):
