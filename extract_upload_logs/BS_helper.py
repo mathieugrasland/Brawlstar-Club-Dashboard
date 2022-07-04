@@ -1,6 +1,6 @@
 import requests
 import pytz
-from datetime import datetime
+from datetime import datetime, timedelta
 from google.cloud import bigquery
 from match_league_processor import get_brawler, get_season, get_day, get_datetime
 from match_league_processor import get_seasonday, get_player, get_timestamp, get_match_details
