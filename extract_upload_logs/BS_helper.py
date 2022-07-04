@@ -65,7 +65,7 @@ class BS_helper:
 
     def get_current_season(self):
         tz = pytz.timezone("Europe/Paris")
-        now = datetime.now(tz=tz)
+        now = datetime.now(tz=tz)+ timedelta(days=-1)
         # WEEK 18 OF YEAR 2022 TO BE THE SAISON 0 OF THE RECORDS
         current_season = "Saison " + str(int(now.strftime("%Y%W")) - 202218)
         return current_season
