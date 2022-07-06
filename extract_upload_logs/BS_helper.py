@@ -83,12 +83,12 @@ class BS_helper:
                 event = battle["event"]
                 line = {}
                 line = get_player(line, name, tag)
-                line = get_seasonday(line)
                 line = get_match_details(line, battle_details)
-                line = get_trophies(line, player)
-                line = get_brawler(tag, line, battle_details)
                 line = get_season(line, time)
                 line = get_day(line, time)
+                line = get_seasonday(line)
+                line = get_trophies(line, player)
+                line = get_brawler(tag, line, battle_details)
                 line = get_datetime(line, time)
                 line = get_timestamp(line, time)
                 line = get_map(line, event)
