@@ -82,17 +82,17 @@ class BS_helper:
                 battle_details = battle["battle"]
                 event = battle["event"]
                 line = {}
+                line = get_player(line, name, tag)
+                line = get_seasonday(line)
+                line = get_match_details(line, battle_details)
                 line = get_trophies(line, player)
                 line = get_brawler(tag, line, battle_details)
                 line = get_season(line, time)
                 line = get_day(line, time)
                 line = get_datetime(line, time)
                 line = get_timestamp(line, time)
-                line = get_seasonday(line)
-                line = get_player(line, name, tag)
                 line = get_map(line, event)
                 line = get_starplayer(line, tag, battle_details)
-                line = get_match_details(line, battle_details)
                 if 'type' in battle_details and battle_details['type'] == "teamRanked" and 'trophyChange' in battle_details and line["season"]==current_s:
                     line["used_tickets"] = 2
                     line["with_club_mate"] = line["points"] in [9, 5]
