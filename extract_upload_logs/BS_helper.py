@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 from google.cloud import bigquery
 from match_league_processor import get_brawler, get_season, get_day, get_datetime
 from match_league_processor import get_seasonday, get_player, get_timestamp, get_match_details
-from match_league_processor import get_map, get_starplayer, current_season
+from match_league_processor import get_map, get_starplayer, current_season, get_trophies
 
 
 class BS_helper:
@@ -62,8 +62,18 @@ class BS_helper:
         )
         return r.json()["items"]
 
+    def get_player_info(self, tag):
+        tag = tag.replace("#", "%23")
+        service = "players/" + tag
+        url_request = self.url + service
+        # Make the request
+        r = requests.get(
+            url=url_request,
+            headers=self.headers
+        )
+        return r.json()
 
-    def get_club_league_matchs(self, name, tag, battlelog):
+    def get_club_league_matchs(self, name, tag, player, battlelog):
         current_s = current_season()
         lines = []
         for battle in battlelog:
@@ -72,6 +82,7 @@ class BS_helper:
                 battle_details = battle["battle"]
                 event = battle["event"]
                 line = {}
+                line = get_trophies(line, player)
                 line = get_brawler(tag, line, battle_details)
                 line = get_season(line, time)
                 line = get_day(line, time)

@@ -28,8 +28,9 @@ def main(request, context):
     lines_to_add = []
     for tag in tag_to_name:
         name = tag_to_name[tag]
+        player = BS.get_player_info(tag)
         battlelog = BS.get_player_battlelog(tag)
-        lines = BS.get_club_league_matchs(name, tag, battlelog)
+        lines = BS.get_club_league_matchs(name, tag, player, battlelog)
         lines_to_add += lines
     print(len(lines_to_add), "lines to add before check")
     # ONLY NEW RECORDS

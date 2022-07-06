@@ -90,3 +90,9 @@ def get_starplayer(line, tag, battle_details):
         is_sp = tag == tag_starplayer
     line["starplayer"] = is_sp
     return line
+
+
+def get_trophies(line, player):
+    trophies = player["trophies"]
+    line["trophies"] = trophies
+    return line
