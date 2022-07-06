@@ -97,7 +97,7 @@ class BS_helper:
                     line["used_tickets"] = 2
                     line["with_club_mate"] = line["points"] in [9, 5]
                     lines.append(line)
-                elif 'mode' in battle_details and battle_details['mode'] != "soloShowdown" and battle_details['mode'] != "duoShowdown" and 'type' in battle_details and battle_details['type'] != 'challenge' and battle_details['type'] != "championshipChallenge" and line["season"]==current_s:
+                elif 'mode' in battle_details and battle_details['mode'] != "soloShowdown" and battle_details['mode'] != "duoShowdown" and battle_details['mode'] != "hunters" and 'type' in battle_details and battle_details['type'] != 'challenge' and battle_details['type'] != "championshipChallenge" and line["season"]==current_s:
                     if 'trophyChange' in battle_details and 0 < battle_details['trophyChange'] < 5:
                         line["used_tickets"] = 1
                         line["with_club_mate"] = line["points"] in [4, 3]
